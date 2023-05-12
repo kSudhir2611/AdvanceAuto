@@ -91,6 +91,25 @@ public class DemoPractice extends BaseClass {
 		
 		System.out.println("Tooltip of age field: "+tool.getAttribute("title"));
 	}
+	@Test
+	public void webtablehandling() 
+	{
+		wd.get("https://www.techlistic.com/2017/02/automate-demo-web-table-with-selenium.html");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		int rowCount = wd.findElements(By.xpath("//table[@id='customers']//tbody//tr")).size();
+		System.out.println("rowCount: "+rowCount);
+		int colCount = wd.findElements(By.xpath("//table[@id='customers']//tbody//tr//th")).size();
+		System.out.println("colCount: "+colCount);
+		
+		for(int i=2;i<rowCount;i++) 
+		{
+			String company = wd.findElement(By.xpath("//table[@id='customers']//tbody//tr["+i+"]//td[1]")).getText();
+			String contact = wd.findElement(By.xpath("//table[@id='customers']//tbody//tr["+i+"]//td[2]")).getText();
+			String country = wd.findElement(By.xpath("//table[@id='customers']//tbody//tr["+i+"]//td[3]")).getText();
+			System.out.println(company+" : "+contact+" : "+country);
+		}
+	}
 		
 			
 		
