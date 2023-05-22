@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="day1.BlazeDemo">
+      <class name="day4.DemoPractice">
         <methods>
           <include name="closeBrowser"/>
           <include name="launchBrowser"/>
-          <include name="dropdownElement"/>
+          <include name="handlingWindow"/>
         </methods>
-      </class> <!-- day1.BlazeDemo -->
+      </class> <!-- day4.DemoPractice -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

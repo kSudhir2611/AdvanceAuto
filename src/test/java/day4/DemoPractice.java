@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 
 import helper.BaseClass;
 import helper.JavaScriptExeUTIL;
+import helper.NewBase;
 
 public class DemoPractice extends BaseClass {
 	
@@ -77,7 +78,7 @@ public class DemoPractice extends BaseClass {
 	{
 		return new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 	}
-	@Test
+	//@Test
 	public void toolTip() 
 	{
 		WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(5));
@@ -91,7 +92,7 @@ public class DemoPractice extends BaseClass {
 		
 		System.out.println("Tooltip of age field: "+tool.getAttribute("title"));
 	}
-	@Test
+	//@Test
 	public void webtablehandling() 
 	{
 		wd.get("https://www.techlistic.com/2017/02/automate-demo-web-table-with-selenium.html");
@@ -108,6 +109,63 @@ public class DemoPractice extends BaseClass {
 			String contact = wd.findElement(By.xpath("//table[@id='customers']//tbody//tr["+i+"]//td[2]")).getText();
 			String country = wd.findElement(By.xpath("//table[@id='customers']//tbody//tr["+i+"]//td[3]")).getText();
 			System.out.println(company+" : "+contact+" : "+country);
+		}
+	}
+	
+	//@Test
+	public void handlingWindow() 
+	{
+		wd.get("https://nxtgenaiacademy.com/multiplewindows/");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		String parentid=wd.getWindowHandle();
+		System.out.println("parent window id: "+parentid);
+		
+		wd.findElement(By.xpath("//div[@class='elementor-element elementor-element-d5cad06 elementor-widget elementor-widget-html']//button[@id='button1']")).click();
+		
+		Set<String> allid = wd.getWindowHandles();
+		
+		for(String id:allid) 
+		{
+			if(!id.equalsIgnoreCase(parentid)) 
+			{
+				wd.switchTo().window(id);
+				//wd.manage().window().maximize();
+				JavascriptExecutor js = (JavascriptExecutor)wd;
+				js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+			}
+			wd.close();
+		}
+		wd.switchTo().window(parentid);
+		wd.findElement(By.xpath("//div[@class='elementor-element elementor-element-f5f0e8d elementor-widget elementor-widget-html']//button[@id='button1']")).click();
+	}
+	
+	
+	//@Test
+	public void frameHandling() 
+	{
+		wd.get("https://nxtgenaiacademy.com/iframe/");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		wd.switchTo().frame("iframe_a");
+		wd.findElement(By.id("vfb-5")).sendKeys("Sudhir Kupate");
+	}
+	@Test
+	public void handlingttable() 
+	{
+		wd.get("https://nxtgenaiacademy.com/iframe/");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		wd.switchTo().frame("iframe_a");
+		
+		int rowCount = wd.findElements(By.xpath("//table//tbody//tr")).size();
+		
+		for(int i=0;i<rowCount;i++) 
+		{
+			String firstColumn = wd.findElement(By.xpath("//table//tbody//tr["+i+"]//td[1]")).getText();
+			String secondColumn = wd.findElement(By.xpath("//table//tbody//tr["+i+"]//td[2]")).getText();
+			
+			System.out.println(firstColumn+"   "+secondColumn);
 		}
 	}
 		
