@@ -1,6 +1,7 @@
 package day4;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,7 +27,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import com.microsoft.schemas.office.visio.x2012.main.CellType;
+
 import helper.BaseClass;
+import helper.DemoQAPOM;
 import helper.JavaScriptExeUTIL;
 import helper.NewBase;
 
@@ -148,9 +156,12 @@ public class DemoPractice extends BaseClass {
 		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		
 		wd.switchTo().frame("iframe_a");
-		wd.findElement(By.id("vfb-5")).sendKeys("Sudhir Kupate");
+		
+		JavascriptExecutor js = (JavascriptExecutor)wd;
+		js.executeScript("document.getElementById('vfb-5').value='Sudhir dada'");
+		//wd.findElement(By.id("vfb-5")).sendKeys("Sudhir Kupate");
 	}
-	@Test
+	//@Test
 	public void handlingttable() 
 	{
 		wd.get("https://nxtgenaiacademy.com/iframe/");
@@ -168,9 +179,66 @@ public class DemoPractice extends BaseClass {
 			System.out.println(firstColumn+"   "+secondColumn);
 		}
 	}
+	//@Test
+	public void readingDataFromExcel() throws IOException 
+	{
+		String location = System.getProperty("user.dir")+".//src//test//resources//userdata.xlsx";
 		
-			
+		File file = new File(location);
+		FileInputStream fis = new FileInputStream(file);
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		XSSFSheet sheet=workbook.getSheet("sheet1");
 		
+		int rowCount = sheet.getPhysicalNumberOfRows();
+		int colCount = sheet.getRow(0).getLastCellNum();
+		
+		System.out.println("number of rows: "+rowCount);
+		System.out.println("number of column: "+colCount);
+		
+		for(int i=0;i<rowCount;i++) 
+		{
+			XSSFRow row = sheet.getRow(i);
+			for(int j=0;j<colCount;j++) 
+			{
+				XSSFCell cell=row.getCell(j);
+				
+				org.apache.poi.ss.usermodel.CellType celltype = cell.getCellType();
+				
+				switch(celltype) 
+				{
+				case STRING:
+					System.out.print(cell.getStringCellValue());
+					break;
+					
+				case NUMERIC:
+					System.out.print(cell.getNumericCellValue());
+					break;	
+				}
+				System.out.print(" | ");
+			}
+			System.out.println();
+		}	
+	}
+	
+	@Test
+	public void fillingForm() throws InterruptedException 
+	{
+		wd.get("https://demoqa.com/automation-practice-form");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		DemoQAPOM demoqa = new DemoQAPOM(wd);
+		demoqa.enterFirstname("Sudhir");
+		demoqa.enterLastname("Kupate");
+		demoqa.enterEmail("sk@gmail.com");
+		demoqa.clickOnGender();
+		demoqa.enterMobileNumber("89898989898");
+		demoqa.enterDateOfBirth();
+		Thread.sleep(2000);
+		//demoqa.enterSubject("Mathamatics");
+		demoqa.enterHobby();
+		demoqa.uploadFile();
+		demoqa.enterAdress("Kolhapur");
+	}
 }
 
 	
