@@ -220,7 +220,7 @@ public class DemoPractice extends BaseClass {
 		}	
 	}
 	
-	@Test
+	//@Test
 	public void fillingForm() throws InterruptedException 
 	{
 		wd.get("https://demoqa.com/automation-practice-form");
@@ -231,13 +231,24 @@ public class DemoPractice extends BaseClass {
 		demoqa.enterLastname("Kupate");
 		demoqa.enterEmail("sk@gmail.com");
 		demoqa.clickOnGender();
-		demoqa.enterMobileNumber("89898989898");
+		demoqa.enterMobileNumber("89898989898"); 
 		demoqa.enterDateOfBirth();
 		Thread.sleep(2000);
 		//demoqa.enterSubject("Mathamatics");
 		demoqa.enterHobby();
 		demoqa.uploadFile();
 		demoqa.enterAdress("Kolhapur");
+	}
+	@Test
+	public void fileUpload() 
+	{
+		wd.get("https://tus.io/demo");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		WebElement uploadfile = wd.findElement(By.id("P0-0"));
+		uploadfile.sendKeys("C:\\Users\\Selenuium\\test.txt");
+		String msg = wd.findElement(By.xpath("//p[@class='_heading_1as67_21']")).getText();
+		System.out.println(msg);
 	}
 }
 

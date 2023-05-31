@@ -9,7 +9,7 @@ import helper.BaseClass;
 import helper.NewBase;
 
 
-public class FileDownload extends NewBase 
+public class FileDownload extends BaseClass 
 {
   //@Test
   public void fileDownload() throws InterruptedException 

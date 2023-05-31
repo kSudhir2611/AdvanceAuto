@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import helper.BaseClass;
 import helper.NewBase;
 
-public class ResisterNewAccount extends NewBase {
+public class ResisterNewAccount extends BaseClass {
   @Test
   public void registerAccount() 
   {

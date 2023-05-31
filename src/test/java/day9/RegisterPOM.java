@@ -57,9 +57,7 @@ public class RegisterPOM {
 		WebElement myelement = wait.until(ExpectedConditions.visibilityOf(wd.findElement(chbox)));
 		js.executeScript("arguments[0].scrollIntoView();", myelement);
 		act.moveToElement(myelement).build().perform();
-		 wd.findElement(submit).click();
-		
-		
+		wd.findElement(submit).click();	
 	}
 	
 }

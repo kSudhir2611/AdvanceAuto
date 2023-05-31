@@ -72,7 +72,7 @@ public class DemoQAPOM
 	
 	public void enterHobby() 
 	{
-		hobby.click();
+		JavaScriptExeUTIL.clickByjs(wd, hobby);
 	}
 	
 	public void uploadFile() 

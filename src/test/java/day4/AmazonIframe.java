@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import helper.BaseClass;
 import helper.NewBase;
 
-public class AmazonIframe extends NewBase {
+public class AmazonIframe extends BaseClass {
   @Test
   public void iframeTesting() throws InterruptedException 
   {

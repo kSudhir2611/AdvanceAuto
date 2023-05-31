@@ -5,9 +5,9 @@ import java.time.Duration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 
-import helper.NewBase;
+import helper.BaseClass;
 
-public class DiffernentJSECommand extends NewBase {
+public class DiffernentJSECommand extends BaseClass {
   @Test
   public void differentCommand() 
   {

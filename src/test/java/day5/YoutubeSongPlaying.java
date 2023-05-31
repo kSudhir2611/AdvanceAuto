@@ -7,9 +7,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import helper.BaseClass;
 import helper.NewBase;
 
-public class YoutubeSongPlaying extends NewBase 
+public class YoutubeSongPlaying extends BaseClass 
 {
   @Test
   public void weekndSong() throws InterruptedException 

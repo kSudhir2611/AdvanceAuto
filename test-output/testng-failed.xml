@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="day4.DemoPractice">
+      <class name="day9.ResisterNewAccount">
         <methods>
           <include name="closeBrowser"/>
           <include name="launchBrowser"/>
-          <include name="fillingForm"/>
+          <include name="registerAccount"/>
         </methods>
-      </class> <!-- day4.DemoPractice -->
+      </class> <!-- day9.ResisterNewAccount -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

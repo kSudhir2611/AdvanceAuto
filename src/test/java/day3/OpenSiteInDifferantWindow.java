@@ -5,9 +5,11 @@ import java.time.Duration;
 
 import org.openqa.selenium.WindowType;
 import org.testng.annotations.Test;
+
+import helper.BaseClass;
 import helper.NewBase;
 
-public class OpenSiteInDifferantWindow extends NewBase
+public class OpenSiteInDifferantWindow extends BaseClass
 {
   @Test(priority=1)
   public void switchingWindow() 
