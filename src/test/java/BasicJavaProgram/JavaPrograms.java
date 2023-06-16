@@ -1,5 +1,10 @@
 package BasicJavaProgram;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.collections4.bag.SynchronizedSortedBag;
 
 public class JavaPrograms {
@@ -48,7 +53,38 @@ public class JavaPrograms {
 		int dis=shortestDistanceInString(S,s1,s2);
 		System.out.println(dis);*/
 		
-		printSumOfArrayWithindex(new int[] {1,2,3,4,5,6,7,8});
+		
+		
+		//printSumOfArrayWithindex(new int[] {1,2,3,4,5,6,7,8});
+		
+		/*int arr[] = { 15, 2, 4, 8, 9, 5, 10, 23 };
+		subarraywithSum(arr,23);*/
+		
+		/*int[] arr = moveAllNegativeOnOneSide(new int[] {1,-2,3,-4,5,6,-7,-1});
+		for(int a:arr) 
+		{
+			System.out.print(a+" "); 
+		}*/
+		
+		//findKthSmallestNumber(new int[] {3,5,6,7,-1,2,4,9},4);
+		
+		//sortTheArrayOf0s1s(new int[] {2,0,1,0,2,1,0,1});
+		
+		//twoSum(new int[] {5,3,4,7,1},9);
+		
+		//countFrequencyOfEachNumber(new int[] {2,1,6,5,2,0,5,2,3,2});
+		
+		//arrryWithGoodpair(new int[]{1,2,3,1,1,3});
+		
+		// subarraySumWithKadane(new int[] {-2,-3,4,-1,-2,1,5,-3});
+		//System.out.println(ans);
+		 
+		 //trianglePattern1(5);
+		// trianglePattern2(5);
+		 //trianglePattern3(5);
+		 //printNewPattern(5);
+		 //patternOfZeroandone(5);
+		 printnewpattern2(5);
 		
 	}
 	public static void swapingTwoNumberWithThirdVariable(int a, int b) 
@@ -381,17 +417,17 @@ public class JavaPrograms {
 		return b;
 	}
 	
-	public static void findnumberofZeroinNfactorial(int n)
+	public static void findnumberofZeroinNfactorial(int n)//n=50
 	{
 		int count = 0;
-		for(int i=5;(n/i)>=1;i=i*5) 
+		for(int i=5;(n/i)>=1;i=i*5) ////10>1///2>1
 		{
 			if(i%5==0) 
 			{
-				count=count+(n/i);
+				count=count+(n/i);//10+2
 			}
 		}
-		System.out.println("Number of zero in n!: "+count);
+		System.out.println("Number of zero in n!: "+count);//12
 	} 
 	
 	public static boolean arrayPalindrome(int[] arr) 
@@ -400,7 +436,7 @@ public class JavaPrograms {
 		int me = 0,frnd=n-1;
 		
 		while(me<=frnd)
-		{
+		  {
 			if(arr[me]!=arr[frnd]) 
 			{
 				return false;
@@ -523,6 +559,341 @@ public class JavaPrograms {
 		 {
 			 System.out.print(brr[i]+" ");
 		 }
+	}
+	
+	public static void subarraywithSum(int[] arr,int sum) 
+	{
+		int n =arr.length;
+		int currentSum=arr[0];
+		int start=0,i;
+		for(i=1;i<=n;i++) 
+		{
+			while(currentSum > sum && start < i-1) // { 15, 2, 4, 8, 9, 5, 10, 23 };i=5
+			{
+				currentSum -= arr[start];//14
+				start++;//1
+			}
+			
+			if(currentSum==sum) 
+			{
+				int p = i-1;
+				System.out.println("Sum found at: "+start+" and "+p);
+			}
+			if(i<n) 
+			{
+				currentSum += arr[i];//29 i=3 //23
+			}
+		}
+	}
+	
+	
+	public static void swap(int[] ar,int i,int j) 
+	{
+		int t = ar[i];
+		ar[i]=ar[j];
+		ar[j]=t;
+	}
+	public static int[] moveAllNegativeOnOneSide(int[] arr) 
+	{
+		int low = 0;
+		int high = arr.length-1;
+		
+		while(low<=high) //{1,-2,3,-4,5,6,-7,-1}
+		{
+			if(arr[low]<=0) 
+			{
+				low++;
+			}
+			else 
+			{
+				swap(arr,low,high--);
+			}
+		}
+		return arr;
+	}
+	
+	public static void findKthSmallestNumber(int[] arr,int k) 
+	{
+		k--;
+		Set<Integer> s = new TreeSet<>();
+		for(int i=0;i<arr.length;i++) //{3,5,6,7,-1,2,9};
+		{
+			s.add(arr[i]);
+		}
+		
+		Iterator<Integer> itr = s.iterator();
+		
+		while(k>0) 
+		{
+			itr.next();
+			k--;
+		}
+		System.out.println(itr.next());
+	}
+	
+	public static void sortTheArrayOf0s1s(int[] ans) 
+	{
+		int n = ans.length;
+		int low=0, mid = 0, high=n-1;
+		while(mid<high) 
+		{
+			if(ans[mid]==0) 
+			{
+				int temp = ans[mid];
+				ans[mid]=ans[low];
+				ans[low]=temp;
+				low++;
+				mid++;
+			}
+			else if(ans[mid]==1) 
+			{
+				mid++;
+			}
+			else if(ans[mid]==2) 
+			{
+				int temp = ans[mid];
+				ans[mid]=ans[high];
+				ans[high]=temp;
+				high--;
+			}
+		}
+		for(int i:ans) 
+		{
+			System.out.print(i+" ");
+		}
+	}
+	
+	public static void twoSum(int[] arr,int target) 
+	{
+		int n = arr.length;
+		int[] ans = new int[2];
+		
+		
+		Arrays.sort(arr);
+		int me = 0,frnd=n-1;
+		 while(me<frnd)//{2,3,4,7,1}
+		 {
+			 int sum = arr[me]+arr[frnd];
+			 if(sum==target) 
+			 {
+				 ans[0]=me;
+				 ans[1]=frnd;
+				 break;
+			 }
+			 else if(sum>target) 
+			 {
+				 frnd--;
+			 }
+			 else 
+			 {
+				 me++;
+			 }
+		 }
+		 for(int i:ans) 
+		 {
+			 System.out.print(i+" ");
+		 }
+		
+	}
+	
+	public static void countFrequencyOfEachNumber(int[] ans) 
+	{
+		int[] freq = new int[101];
+		
+		for(int i=0;i<ans.length;i++) //{2,1,6,5,2,0,5,2,3,2}
+		{
+			freq[ans[i]]++;
+		}
+		
+		for(int i=0;i<101;i++) 
+		{
+			System.out.print(freq[i]+" ");
+		}
+	}
+	
+	public static void arrryWithGoodpair(int[] arr) 
+	{
+		int n = arr.length;
+		int ans = 0;
+		int[] freq = new int[101];
+		for(int i=0;i<n;i++) //{1,2,3,1,1,3}
+		{
+			freq[arr[i]]++;// 3 1 2
+		}
+		for(int i=0;i<101;i++) 
+		{
+			ans =ans + (freq[i]*(freq[i]-1))/2;
+		}
+		System.out.println("good pair: "+ans);
+		
+	}
+	
+	public static void subarraySumWithKadane(int[] arr) 
+	{
+		int n = arr.length;
+		int max = Integer.MIN_VALUE;
+		int sum = 0;
+		int start = 0;
+		int ansStart=-1,ansend=-1;
+		for(int i=0;i<n;i++) //-2,-3,4,-1,-2,1,5,-3
+		{
+			if(sum==0) 
+			{
+				start = i;
+			}
+			sum = sum + arr[i];
+			if(sum>max) 
+			{
+				max = sum;
+				ansStart = start;
+				ansend = i;
+			}
+			if(sum<0) 
+			{
+				sum = 0;
+			}
+		}
+		System.out.println(ansStart);
+		System.out.println(ansend);
+		for(int j=ansStart;j<=ansend;j++) 
+		{
+			System.out.print(arr[j]+" ");
+		}
+	}
+	
+	public static void trianglePattern1(int n) 
+	{
+		for(int i=0;i<n;i++) 
+		{
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			for(int j=0;j<2*i+1;j++) 
+			{
+				System.out.print("*");
+			}
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public static void trianglePattern2(int n) 
+	{
+		for(int i=0;i<n;i++) 
+		{
+			for(int j=0;j<i;j++) 
+			{
+				System.out.print(" ");
+			}
+			for(int j=0;j<2*n-(2*i+1);j++) 
+			{
+				System.out.print("*");
+			}
+			for(int j=0;j<i;j++) 
+			{
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public static void trianglePattern3(int n) 
+	{
+		for(int i=0;i<n;i++) 
+		{
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			for(int j=0;j<2*i+1;j++) 
+			{
+				System.out.print("*");
+			}
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+		for(int i=0;i<n;i++) 
+		{
+			for(int j=0;j<i;j++) 
+			{
+				System.out.print(" ");
+			}
+			for(int j=0;j<2*n-(2*i+1);j++) 
+			{
+				System.out.print("*");
+			}
+			for(int j=0;j<i;j++) 
+			{
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public static void printNewPattern(int n) 
+	{
+		for(int i=1;i<=2*n-1;i++) 
+		{
+			int star = i;
+			if(i>n)
+				star=2*n-i;
+			for(int j=1;j<=star;j++) 
+			{
+				System.out.print("* ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void patternOfZeroandone(int n) 
+	{
+		int start=1;
+		for(int i=0;i<=n;i++) 
+		{
+			if(i % 2 == 0)
+				start = 1;
+			else
+				start = 0;
+			for(int j=0;j<=i;j++) 
+			{
+				System.out.print(start);
+				start = 1 -start;
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void printnewpattern2(int n) 
+	{
+		int space = 2*(n-1);
+		for(int i=1;i<=n;i++) 
+		{
+			for(int j=1;j<=i;j++) 
+			{
+				System.out.print(j);
+			}
+			for(int j=1;j<=space;j++) 
+			{
+				System.out.print(" ");
+			}
+			for(int j=i;j>=1;j--) 
+			{
+				System.out.print(j);
+			}
+			System.out.println();
+			space -=2;
+		}
 	}
 }
 

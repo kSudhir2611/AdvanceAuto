@@ -17,7 +17,7 @@ public class FileDownloadinEdge  {
   public void fileDownload() 
   {
 	  String location ="C:\\Users\\Selenuium";
-	  HashMap<Object,Object> preferances = new HashMap<>();
+	  HashMap<Object,Object> preferances = new HashMap<Object, Object>();
 	  preferances.put("download.default_directory", location);
 	  preferances.put("plugins.always_open_pdf_externally",true);
 	  EdgeOptions option = new EdgeOptions();

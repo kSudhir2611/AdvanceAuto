@@ -1,8 +1,13 @@
 package day4;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -11,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,24 +24,31 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.microsoft.schemas.office.visio.x2012.main.CellType;
+
 
 import helper.BaseClass;
 import helper.DemoQAPOM;
 import helper.JavaScriptExeUTIL;
 import helper.NewBase;
+import helper.baseNewClass;
 
 public class DemoPractice extends BaseClass {
 	
+	private static final String STRING = null;
+	private static final String NUMERIC = null;
+
 	//@Test(priority=1)
 	public void demopractice() throws InterruptedException, IOException
 	{
@@ -161,7 +174,7 @@ public class DemoPractice extends BaseClass {
 		js.executeScript("document.getElementById('vfb-5').value='Sudhir dada'");
 		//wd.findElement(By.id("vfb-5")).sendKeys("Sudhir Kupate");
 	}
-	//@Test
+//	@Test
 	public void handlingttable() 
 	{
 		wd.get("https://nxtgenaiacademy.com/iframe/");
@@ -239,7 +252,7 @@ public class DemoPractice extends BaseClass {
 		demoqa.uploadFile();
 		demoqa.enterAdress("Kolhapur");
 	}
-	@Test
+	//@Test
 	public void fileUpload() 
 	{
 		wd.get("https://tus.io/demo");
@@ -249,6 +262,86 @@ public class DemoPractice extends BaseClass {
 		uploadfile.sendKeys("C:\\Users\\Selenuium\\test.txt");
 		String msg = wd.findElement(By.xpath("//p[@class='_heading_1as67_21']")).getText();
 		System.out.println(msg);
+	}
+	
+	@Test
+	public void OnlyForTodayPractice() throws InterruptedException, AWTException, IOException 
+	{
+		wd.get("https://nxtgenaiacademy.com/multiplewindows/");
+		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		String parentWindowhandle = wd.getWindowHandle();
+		
+		wd.findElement(By.name("newbrowserwindow123")).click();
+		
+		Set<String> allhandle = wd.getWindowHandles();
+		
+		for(String wid:allhandle) 
+		{
+			while(!wid.equalsIgnoreCase(parentWindowhandle)) 
+			{
+				wd.switchTo().window(wid);
+				wd.manage().window().maximize();
+				WebElement ele=wd.findElement(By.xpath("//div//a//span//span[@xpath='2']"));
+				JavascriptExecutor js = (JavascriptExecutor)wd;
+				js.executeScript("arguments[0].scrollIntoView()", ele);
+				ele.click();
+			}
+			wd.close();
+		}
+		
+		System.out.println("we exited from child window");
+		wd.switchTo().window(parentWindowhandle);
+		
+		WebElement one = wd.findElement(By.xpath("//*[@id=\"header\"]/div[2]/div/div/div[3]/div[2]/div[2]/ul/li[2]"));
+		WebElement two = wd.findElement(By.xpath("//*[@id=\"header\"]/div[2]/div/div/div[3]/div[2]/div[2]/ul/li[6]/a"));
+		
+		Actions act = new Actions(wd);
+		act.moveToElement(one).moveToElement(two).click().perform();
+		
+	}
+	
+	//@Test(dataProvider="data")
+	public void orangeHRMleaveApplication(String name,String lname,String email,String pass) 
+	{
+		System.out.println(name+"     "+lname+"    "+email+"    "+pass);
+	}
+	
+	@DataProvider(name="data")
+	public String[][] dataProvide() throws IOException 
+	{
+		String path = System.getProperty("user.dir")+"\\src\\test\\resources\\fs.xlsx";
+		
+		File file = new File(path);
+		FileInputStream fis = new FileInputStream(file);
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		
+		XSSFSheet sheet = workbook.getSheet("regi");
+		
+		int row = sheet.getLastRowNum();
+		int col = sheet.getRow(0).getLastCellNum();
+		
+		String[][] data = new String[row][col];
+		for(int i=0;i<row;i++) 
+		{
+			XSSFRow rowa = sheet.getRow(i);
+			for(int j=0;j<col;j++) 
+			{
+				XSSFCell cell = rowa.getCell(j);
+				
+				CellType CellType = cell.getCellType();
+				
+				switch(CellType) 
+				{
+				case STRING:
+					data[i][j]=cell.getStringCellValue();
+					
+				
+				}
+			}
+		}
+		return data;
 	}
 }
 
