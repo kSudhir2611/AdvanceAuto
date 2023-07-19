@@ -26,8 +26,8 @@ public class FaceBookLogin  {
 		wd.manage().window().maximize();
 		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		
-		wd.findElement(By.id(prop.getProperty("username"))).sendKeys("9158832986");
-		wd.findElement(By.id(prop.getProperty("password"))).sendKeys("shampatil@1992");
+		wd.findElement(By.id(prop.getProperty("username"))).sendKeys("91*******6");
+		wd.findElement(By.id(prop.getProperty("password"))).sendKeys("shamp****92");
 		wd.findElement(By.name(prop.getProperty("login"))).click();
 		
 		System.out.println(wd.getTitle());
