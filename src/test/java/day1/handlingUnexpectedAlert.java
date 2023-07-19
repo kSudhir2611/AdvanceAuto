@@ -42,8 +42,6 @@ public class handlingUnexpectedAlert extends BaseClass {
 		  JavascriptExecutor js = (JavascriptExecutor) wd;
 		  js.executeScript("arguments[0].setAttribute('style', arguments[1]);",element, "color: red; border: 3px solid yellow;");
 		  js.executeScript("arguments[0].setAttribute('style', arguments[1]);",element, "color: red; border: 3px solid yellow;");
-	  }
-	  
-	  
+	  }	  
   }
 }

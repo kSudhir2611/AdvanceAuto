@@ -31,9 +31,7 @@ public class MantisProgram extends BaseClass {
 	  act.moveToElement(viewissue)
 	  .moveToElement(reportissue)
 	  .moveToElement(changelog)
-	  .moveToElement(roadmap).moveToElement(repos).perform();
-	  
-	  
+	  .moveToElement(roadmap).moveToElement(repos).perform();	  
 	  
   }
 }

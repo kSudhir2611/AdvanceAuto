@@ -2,19 +2,27 @@ package day4;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Dimension;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -26,8 +34,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -265,40 +275,17 @@ public class DemoPractice extends BaseClass {
 	}
 	
 	@Test
-	public void OnlyForTodayPractice() throws InterruptedException, AWTException, IOException 
+	public void OnlyForTodayPractice() throws AWTException, InterruptedException, SQLException 
 	{
-		wd.get("https://nxtgenaiacademy.com/multiplewindows/");
+		wd.get("https://www.dezlearn.com/webtable-example/");
 		wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		
-		String parentWindowhandle = wd.getWindowHandle();
-		
-		wd.findElement(By.name("newbrowserwindow123")).click();
-		
-		Set<String> allhandle = wd.getWindowHandles();
-		
-		for(String wid:allhandle) 
+		List<WebElement>allbox=wd.findElements(By.xpath("//input[@type='checkbox']"));
+		for(WebElement ele:allbox) 
 		{
-			while(!wid.equalsIgnoreCase(parentWindowhandle)) 
-			{
-				wd.switchTo().window(wid);
-				wd.manage().window().maximize();
-				WebElement ele=wd.findElement(By.xpath("//div//a//span//span[@xpath='2']"));
-				JavascriptExecutor js = (JavascriptExecutor)wd;
-				js.executeScript("arguments[0].scrollIntoView()", ele);
-				ele.click();
-			}
-			wd.close();
+			ele.click();
+			Thread.sleep(2000);
 		}
-		
-		System.out.println("we exited from child window");
-		wd.switchTo().window(parentWindowhandle);
-		
-		WebElement one = wd.findElement(By.xpath("//*[@id=\"header\"]/div[2]/div/div/div[3]/div[2]/div[2]/ul/li[2]"));
-		WebElement two = wd.findElement(By.xpath("//*[@id=\"header\"]/div[2]/div/div/div[3]/div[2]/div[2]/ul/li[6]/a"));
-		
-		Actions act = new Actions(wd);
-		act.moveToElement(one).moveToElement(two).click().perform();
-		
 	}
 	
 	//@Test(dataProvider="data")

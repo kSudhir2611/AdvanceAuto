@@ -1,17 +1,31 @@
 package BasicJavaProgram;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.collections4.bag.SynchronizedSortedBag;
 
 public class JavaPrograms {
 	static int fact = 1;
 	static int a=0,b=1,c;
 	public static void main(String[] args) {
+		//hashCharacter("abcdabef");
+		//hashUsingmap(new int[] {1,2,1,3,2,4,5});
+		//charhashingusingmap("abcdabefdh");
+		//findMaxMinCountNumber(new int[] {10, 5, 10, 15, 10, 5});
 		
+		//selectionSort(new int[] {13,46,24,20,52,9});
+		//bubble_sort(new int[] {13,46,24,20,52,9});
+		//insertion_sort(new int[] {13,46,24,20,52,9});
+		int []arr= {13,46,24,20,52,9};
+		merge_sort(arr,0,arr.length-1);
+		for(int j:arr) 
+		{
+			System.out.print(j+" ");
+		}
 		//swapingTwoNumberWithThirdVariable(3,5);
 		//swapingTwoVariableWithoutUsingThirdVariable(5,9);
 		//factorial(5);
@@ -79,12 +93,34 @@ public class JavaPrograms {
 		// subarraySumWithKadane(new int[] {-2,-3,4,-1,-2,1,5,-3});
 		//System.out.println(ans);
 		 
-		 //trianglePattern1(5);
-		// trianglePattern2(5);
-		 //trianglePattern3(5);
-		 //printNewPattern(5);
-		 //patternOfZeroandone(5);
+		/* trianglePattern1(5);
+		trianglePattern2(5);
+		 trianglePattern3(5);
+		 printNewPattern(5);
+		 patternOfZeroandone(5);
 		 printnewpattern2(5);
+		 incrementNumberpattern(5);
+		 patternOfAlphabet(5);
+		 patternReverseAlphabet(5);
+		 rightAngleAlphabet(5);
+		 triangleAlphabet(5);
+		 printPatternUptoE(5);*/
+		//NumberIsPrime(17);
+		//System.out.println(basicRecursionProblem(5));
+		
+		/*int[] arr = {1,2,3,4,5};
+		reverseArrayUsingRcursion(arr,0,arr.length);
+		for(int i:arr) 
+		{
+			System.out.print(i+" ");
+		}*/
+		
+		
+		/*String str = "madsm";
+		boolean status=isStringpalindrome(str,0,str.length());
+		System.out.println("isString palindrome: "+status);*/
+		
+		//int num=fib(5);System.out.println(num);//0 1 1 2 3 5 8 13 21 34 55
 		
 	}
 	public static void swapingTwoNumberWithThirdVariable(int a, int b) 
@@ -894,6 +930,372 @@ public class JavaPrograms {
 			System.out.println();
 			space -=2;
 		}
+	}
+	
+	public static void incrementNumberpattern(int n) 
+	{
+		int num = 1;
+		for(int i=1;i<=n;i++) 
+		{
+			for(int j=1;j<=i;j++) 
+			{
+				System.out.print(num+" ");
+				num += 1;
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void patternOfAlphabet(int n) 
+	{
+		for(int i=1;i<=n;i++) 
+		{
+			for(char ch='A';ch<'A'+i;ch++) 
+			{
+				System.out.print(ch+" ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public static void patternReverseAlphabet(int n) 
+	{
+		for(int i=1;i<=n;i++) 
+		{
+			for(char ch='A';ch<='A'+(n-i);ch++) 
+			{
+				System.out.print(ch+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void rightAngleAlphabet(int n) 
+	{
+		char ch = 'A';
+		for(int i=1;i<=n;i++) 
+		{
+			for(int j=1;j<=i;j++) 
+			{
+				System.out.print(ch+" ");
+			}
+			System.out.println();
+			ch++;	
+		}
+	}
+	
+	public static void triangleAlphabet(int n) 
+	{
+		char ch = 'A';
+		//spaces
+		for(int i=0;i<n;i++) 
+		{
+			int breakpoint=(2*i+1)/2;
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			//character
+			for(int j=0;j<2*i+1;j++) 
+			{
+				System.out.print(ch);
+				if(j<=breakpoint)
+					ch++;
+				else
+					ch--;
+			}
+			//spaces
+			for(int j=0;j<n-i-1;j++) 
+			{
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void printPatternUptoE(int n) 
+	{
+		for(int i=0;i<n;i++) 
+		{
+			for(char ch = (char) ('E'-i);ch<='E';ch++) 
+			{
+				System.out.print(ch+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void NumberIsPrime(int n) 
+	{
+		int count=0;
+		for(int i=1;i*i<=n;i++) 
+		{
+			if(n % i == 0) {
+				count++;
+			if(n / i != i)
+				count++;
+			}
+		}
+		if(count==2)
+			System.out.println("number is prime");
+		else
+			System.out.println("not prime");
+	}
+	
+	public static int basicRecursionProblem(int n) 
+	{
+		if(n==0)
+			return 1;
+		
+		return n*basicRecursionProblem(n-1);
+	}
+	
+	public static void reverseArrayUsingRcursion(int[] arr,int i,int n) 
+	{
+		if(i>=n/2)
+			return;
+		
+		swap(arr,i,n-i-1);
+		reverseArrayUsingRcursion(arr,i+1,n);
+	}
+	
+	public static boolean isStringpalindrome(String s,int i,int n) 
+	{
+		if(i>=n/2)
+			return true;
+		
+		if(s.charAt(i) != s.charAt(n-i-1))
+			return false;
+		return isStringpalindrome(s,i+1,n);
+		
+	}
+	
+	public static int fib(int n) 
+	{
+		if(n<=1)
+			return n;
+		
+		int last = fib(n-1);
+		int slast = fib(n-2);
+		
+		return last+slast;
+	}
+	
+	public static void hashCharacter(String s) 
+	{
+		int[] hashh = new int[26];//if contains lowercase letter otherwise take all char 256
+		
+		for(int i=0;i<s.length();i++) //abcdabef
+		{
+			char ch = s.charAt(i);
+			hashh[ch - 'a']++;//ch only for 256 char
+		}
+		for(int ch:hashh) 
+		{
+			System.out.print(ch+" ");
+		}
+	}
+	
+	public static void hashUsingmap(int[] arr) 
+	{
+		Map<Integer,Integer> mpp=new HashMap<>();//{1,2,1,3,2,4,5}
+		for(int i=0;i<arr.length;i++) 
+		{
+			if(mpp.containsKey(arr[i])) 
+			{
+				mpp.put(arr[i], mpp.get(arr[i])+1);
+			}
+			else 
+			{
+				mpp.put(arr[i], 1);
+			}
+		}
+		
+		for (Map.Entry<Integer,Integer> entry : mpp.entrySet()) 
+		{
+			System.out.println(entry.getKey()+"-->"+entry.getValue());
+		}
+		
+	}
+	
+	public static void charhashingusingmap(String s) 
+	{
+		Map<Character, Integer> map = new HashMap<>();
+		for(int i=0;i<s.length();i++) 
+		{
+			char ch = s.charAt(i);
+			if(map.containsKey(ch)) 
+			{
+				map.put(ch, map.get(ch)+1);
+			}
+			else 
+			{
+				map.put(ch, 1);
+			}
+		}
+		for(Map.Entry<Character, Integer> mpp:map.entrySet()) 
+		{
+			System.out.println(mpp.getKey()+"-->"+mpp.getValue());
+		}
+	}
+	
+	public static void findMaxMinCountNumber(int[] arr) 
+	{
+		Map<Integer, Integer> mpp = new HashMap<>();
+		int n = arr.length;
+		
+		for(int i=0;i<n;i++) 
+		{
+			if(mpp.containsKey(arr[i])) 
+			{
+				mpp.put(arr[i], mpp.get(arr[i])+1);
+			}
+			else 
+			{
+				mpp.put(arr[i], 1);
+			}
+		}
+		
+		int minFreq=n,maxFreq=0;
+		int minEle=0,maxEle=0;
+		for(Map.Entry<Integer, Integer>mp:mpp.entrySet()) 
+		{
+			int count = mp.getValue();//{10, 5, 10, 15, 10, 5});
+			int element = mp.getKey();// 10-3  5-2 15-1
+			
+			if(count>maxFreq) 
+			{
+				maxEle=element;//10
+				maxFreq=count;//3
+			}
+			if(count<minFreq) 
+			{
+				minEle=element;
+				minFreq=count;
+				
+			}
+		}
+		System.out.println("Min  freq Element: "+minEle);
+		System.out.println("max freq  Element: "+maxEle);
+	}
+	
+	public static void selectionSort(int[] arr) 
+	{
+		int n = arr.length;
+		for(int i=0;i<=n-2;i++) 
+		{
+			int mini = i;
+			for(int j=i;j<=n-1;j++) 
+			{
+				if(arr[j]<arr[mini]) 
+				{
+					mini = j;
+				}
+				int temp = arr[mini];
+				arr[mini] = arr[i];
+				arr[i]=temp;
+			}
+		}
+		
+		for(int i:arr) 
+		{
+			System.out.print(i+" ");
+		}
+	}
+	
+	public static void bubble_sort(int[] arr) 
+	{
+		int n = arr.length;
+		for(int i=n-1;i>=0;i--) 
+		{
+			for(int j=0;j<=i-1;j++) //{13,46,24,20,52,9}
+			{
+				if(arr[j]>arr[j+1]) 
+				{
+					int temp = arr[j+1];
+					arr[j+1]=arr[j];
+					arr[j]=temp;
+				}
+			}
+		}
+		
+		for(int i:arr) 
+		{
+			System.out.print(i+" ");
+		}
+	}
+	
+	public static void insertion_sort(int[] arr) 
+	{
+		int n = arr.length;
+		for(int i=0;i<=n-1;i++) 
+		{
+			int j = i;
+			while(j>0 && arr[j-1]>arr[j]) //{13,46,24,20,52,9}
+			{
+				int temp = arr[j-1];
+				arr[j-1]=arr[j];
+				arr[j]=temp;
+				j--;
+			}
+		}
+		for(int k:arr) 
+		{
+			System.out.print(k+" ");
+		}
+	}
+	
+	public static void merge_sort(int[] arr,int low,int high) 
+	{
+		if(low<=high)
+			return;
+		
+		int mid = (low+high)/2;
+		merge_sort(arr,low,mid);
+		merge_sort(arr,mid+1,high);
+		merge(arr,low,mid,high);
+		
+		
+	}
+	
+	public static void merge(int[] arr,int low,int mid,int high) 
+	{
+		int left = low,right=mid+1;
+		int k=0;
+		int[] temp = new int[arr.length];
+		while(left<=mid && right <=high) 
+		{
+			if(arr[left]<=arr[right]) 
+			{
+				temp[k]=arr[left];
+				left++;
+				k++;
+			}
+			else 
+			{
+				temp[k]=arr[right];
+				right++;
+				k++;
+			}
+		}
+		while(left<=mid) 
+		{
+			temp[k]=arr[left];
+			left++;
+			k++;
+		}
+		while(right<=high) 
+		{
+			temp[k]=arr[right];
+			right++;
+			k++;
+		}
+		for(int i=0,j=low;i<=temp.length;i++,j++) 
+		{
+			arr[j]=temp[i];
+		}
+		
 	}
 }
 
