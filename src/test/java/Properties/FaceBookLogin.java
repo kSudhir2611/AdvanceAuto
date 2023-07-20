@@ -16,11 +16,11 @@ public class FaceBookLogin  {
 	@Test
 	public void loginFacebook() throws FileNotFoundException, IOException 
 	{
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sudhir Kupate\\AdvanceAuto\\AdvanceAutomation\\src\\test\\resources\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "\\src\\test\\resources\\resources\\chromedriver.exe");
 		
 		WebDriver wd = new ChromeDriver();
 		prop = new Properties();
-		prop.load(new FileInputStream("C:\\Users\\Sudhir Kupate\\AdvanceAuto\\AdvanceAutomation\\src\\test\\resources\\DemoProperty\\fb.property"));
+		prop.load(new FileInputStream("\\src\\test\\resources\\DemoProperty\\fb.property"));
 		
 		wd.get(prop.getProperty("url"));
 		wd.manage().window().maximize();
